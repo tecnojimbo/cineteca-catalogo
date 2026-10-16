@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cineteca, tu catálogo personal de películas y series.">
+  <title>CINETÉCA — Películas para perderse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#inicio" aria-label="Cineteca, inicio"><span>CINE</span>TÉCA</a>
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      <a class="active" href="#inicio">Inicio</a>
+      <a href="#catalogo">Películas</a>
+      <a href="#catalogo" data-filter-link="series">Series</a>
+      <a href="#mi-lista">Mi lista</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Buscar películas">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      </button>
+      <button class="profile-btn" aria-label="Perfil de usuario">JD</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+    </div>
+    <div class="search-panel" id="searchPanel">
+      <label for="searchInput">Buscar en el catálogo</label>
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <input id="searchInput" type="search" placeholder="Título, género o director..." autocomplete="off">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio" aria-labelledby="heroTitle">
+      <div class="hero-backdrop"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span></span> Selección de la semana</div>
+        <h1 id="heroTitle">El eco de<br><em>las estrellas</em></h1>
+        <div class="meta"><span class="match">98% para ti</span><span>2025</span><span>2h 17min</span><span class="rating">+13</span></div>
+        <p>En los confines del espacio, una astronauta despierta sin recuerdos. La única voz que la guía podría ser la razón por la que está sola.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-open-movie="1"><span class="play-icon">▶</span> Ver ahora</button>
+          <button class="btn btn-ghost" data-open-movie="1"><span>ⓘ</span> Más información</button>
+        </div>
+      </div>
+      <div class="hero-index" aria-hidden="true"><span>01</span><i></i><span>05</span></div>
+      <div class="scroll-hint" aria-hidden="true">Explorar <span>↓</span></div>
+    </section>
+
+    <section class="catalog" id="catalogo">
+      <div class="section-head">
+        <div><span class="section-number">01</span><h2>Descubre algo<br><em>extraordinario</em></h2></div>
+        <button class="text-link" id="showAllBtn">Ver todo el catálogo <span>↗</span></button>
+      </div>
+      <div class="filters" id="filters" aria-label="Filtrar por género"></div>
+      <div class="movie-grid" id="movieGrid"></div>
+      <div class="empty-state" id="emptyState" hidden><span>✦</span><h3>No encontramos esa película</h3><p>Prueba con otro título o género.</p></div>
+    </section>
+
+    <section class="spotlight" id="estrenos">
+      <div class="spotlight-art"></div>
+      <div class="spotlight-copy">
+        <span class="section-number">02 — Estreno destacado</span>
+        <h2>Donde termina<br><em>el invierno</em></h2>
+        <p>Un retrato íntimo sobre volver a casa, hacer las paces con el pasado y encontrar belleza en los lugares que dejamos atrás.</p>
+        <div class="meta"><span>Drama</span><span>2025</span><span>1h 54min</span></div>
+        <button class="btn btn-outline" data-open-movie="8">Descubrir la historia <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="my-list" id="mi-lista">
+      <div class="section-head compact"><div><span class="section-number">03</span><h2>Mi lista</h2></div><p id="listCount">0 títulos guardados</p></div>
+      <div class="movie-grid list-grid" id="listGrid"></div>
+      <p class="list-placeholder" id="listPlaceholder">Aún no has guardado nada. Pulsa <strong>＋ Mi lista</strong> en una película.</p>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#inicio"><span>CINE</span>TÉCA</a><p>Historias que merecen ser encontradas.</p><span>© 2026 Cineteca</span></footer>
+
+  <div class="modal" id="movieModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="modal-card">
+      <button class="modal-close" data-close-modal aria-label="Cerrar">×</button>
+      <div class="modal-visual" id="modalVisual"><button class="modal-play" aria-label="Reproducir">▶</button></div>
+      <div class="modal-body">
+        <div class="modal-title-row"><div><span class="match">97% para ti</span><h2 id="modalTitle"></h2></div><button class="round-list-btn" id="modalListBtn" aria-label="Añadir a mi lista">＋</button></div>
+        <div class="meta" id="modalMeta"></div>
+        <p id="modalDescription"></p>
+        <div class="modal-credits"><span><small>Director</small><strong id="modalDirector"></strong></span><span><small>Reparto</small><strong id="modalCast"></strong></span></div>
+      </div>
+    </article>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
