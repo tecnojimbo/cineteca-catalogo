@@ -44,11 +44,11 @@
         <div class="meta"><span class="match">98% para ti</span><span>2025</span><span>2h 17min</span><span class="rating">+13</span></div>
         <p>En los confines del espacio, una astronauta despierta sin recuerdos. La única voz que la guía podría ser la razón por la que está sola.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" data-open-movie="1"><span class="play-icon">▶</span> Ver ahora</button>
+          <button class="btn btn-primary" id="heroPlay" data-play-movie="1"><span class="play-icon">▶</span> Ver ahora</button>
           <button class="btn btn-ghost" data-open-movie="1"><span>ⓘ</span> Más información</button>
         </div>
       </div>
-      <div class="hero-index" aria-hidden="true"><span>01</span><i></i><span>05</span></div>
+      <div class="hero-controls" aria-label="Cambiar película destacada"><button id="heroPrev" aria-label="Anterior">←</button><div id="heroDots"></div><button id="heroNext" aria-label="Siguiente">→</button></div>
       <div class="scroll-hint" aria-hidden="true">Explorar <span>↓</span></div>
     </section>
 
@@ -57,24 +57,30 @@
         <div><span class="section-number">01</span><h2>Descubre algo<br><em>extraordinario</em></h2></div>
         <button class="text-link" id="showAllBtn">Ver todo el catálogo <span>↗</span></button>
       </div>
-      <div class="filters" id="filters" aria-label="Filtrar por género"></div>
+      <div class="catalog-toolbar"><div class="filters" id="filters" aria-label="Filtrar por género"></div><label class="sort-control">Ordenar <select id="sortSelect"><option value="featured">Destacadas</option><option value="newest">Más recientes</option><option value="rating">Mejor valoradas</option><option value="az">A–Z</option></select></label></div>
+      <p class="results-count" id="resultsCount"></p>
       <div class="movie-grid" id="movieGrid"></div>
       <div class="empty-state" id="emptyState" hidden><span>✦</span><h3>No encontramos esa película</h3><p>Prueba con otro título o género.</p></div>
+    </section>
+
+    <section class="continue-section" id="continuar" hidden>
+      <div class="section-head compact"><div><span class="section-number">02</span><h2>Continuar viendo</h2></div><button class="text-link" id="clearProgress">Limpiar historial</button></div>
+      <div class="continue-grid" id="continueGrid"></div>
     </section>
 
     <section class="spotlight" id="estrenos">
       <div class="spotlight-art"></div>
       <div class="spotlight-copy">
-        <span class="section-number">02 — Estreno destacado</span>
+        <span class="section-number">03 — Estreno destacado</span>
         <h2>Donde termina<br><em>el invierno</em></h2>
         <p>Un retrato íntimo sobre volver a casa, hacer las paces con el pasado y encontrar belleza en los lugares que dejamos atrás.</p>
         <div class="meta"><span>Drama</span><span>2025</span><span>1h 54min</span></div>
-        <button class="btn btn-outline" data-open-movie="8">Descubrir la historia <span>→</span></button>
+        <button class="btn btn-outline" data-play-movie="8">Reproducir <span>▶</span></button>
       </div>
     </section>
 
     <section class="my-list" id="mi-lista">
-      <div class="section-head compact"><div><span class="section-number">03</span><h2>Mi lista</h2></div><p id="listCount">0 títulos guardados</p></div>
+      <div class="section-head compact"><div><span class="section-number">04</span><h2>Mi lista</h2></div><p id="listCount">0 títulos guardados</p></div>
       <div class="movie-grid list-grid" id="listGrid"></div>
       <p class="list-placeholder" id="listPlaceholder">Aún no has guardado nada. Pulsa <strong>＋ Mi lista</strong> en una película.</p>
     </section>
@@ -86,7 +92,7 @@
     <div class="modal-backdrop" data-close-modal></div>
     <article class="modal-card">
       <button class="modal-close" data-close-modal aria-label="Cerrar">×</button>
-      <div class="modal-visual" id="modalVisual"><button class="modal-play" aria-label="Reproducir">▶</button></div>
+      <div class="modal-visual" id="modalVisual"><button class="modal-play" id="modalPlay" aria-label="Reproducir">▶</button></div>
       <div class="modal-body">
         <div class="modal-title-row"><div><span class="match">97% para ti</span><h2 id="modalTitle"></h2></div><button class="round-list-btn" id="modalListBtn" aria-label="Añadir a mi lista">＋</button></div>
         <div class="meta" id="modalMeta"></div>
@@ -95,6 +101,11 @@
       </div>
     </article>
   </div>
+
+  <div class="player" id="player" role="dialog" aria-modal="true" aria-label="Reproductor" hidden>
+    <div class="player-stage" id="playerStage"><button class="player-close" id="playerClose" aria-label="Cerrar reproductor">×</button><div class="player-center"><button id="playPause" aria-label="Pausar">Ⅱ</button><h2 id="playerTitle"></h2><p id="playerStatus">Reproduciendo</p></div><div class="player-controls"><button id="rewindBtn" aria-label="Retroceder 10 segundos">↶ 10</button><button id="controlPlay" aria-label="Pausar">Ⅱ</button><span id="currentTime">00:00</span><input id="progressRange" type="range" min="0" max="100" value="0" aria-label="Progreso de reproducción"><span id="totalTime">00:00</span><button id="muteBtn" aria-label="Silenciar">🔊</button><button id="fullscreenBtn" aria-label="Pantalla completa">⛶</button></div></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>
